@@ -4,20 +4,20 @@
 
 source shared.sh
 
+export BR2_DL_DIR=${HOME}/.dl
+
 EXTERNAL_REL_BUILDROOT=../base_external
 git submodule init
 git submodule sync
 git submodule update
 
-set -e 
-cd `dirname $0`
+set -e
+cd $(dirname $0)
 
-if [ ! -e buildroot/.config ]
-then
+if [ ! -e buildroot/.config ]; then
 	echo "MISSING BUILDROOT CONFIGURATION FILE"
 
-	if [ -e ${AESD_MODIFIED_DEFCONFIG} ]
-	then
+	if [ -e ${AESD_MODIFIED_DEFCONFIG} ]; then
 		echo "USING ${AESD_MODIFIED_DEFCONFIG}"
 		make -C buildroot defconfig BR2_EXTERNAL=${EXTERNAL_REL_BUILDROOT} BR2_DEFCONFIG=${AESD_MODIFIED_DEFCONFIG_REL_BUILDROOT}
 	else
